@@ -1,25 +1,23 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  EventEmitter,
-  input,
-  Input,
-  output,
-  Output,
-} from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { FormArray, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { FormInputComponent } from '../form-input/form-input.component';
+import { MatStepperModule } from '@angular/material/stepper';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-address-step',
   imports: [
-    CommonModule,
     ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
+    FormInputComponent,
     MatButtonModule,
+    MatStepperModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatSelectModule,
   ],
   templateUrl: './address-step.component.html',
   styleUrl: './address-step.component.css',

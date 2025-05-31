@@ -8,34 +8,38 @@
           <form [formGroup]="personalInfoGroup">
             <ng-template matStepLabel>Personal Info</ng-template>
             <div class="row mt-4">
-              <div class="col-md-4">
-                <mat-form-field appearance="outline" class="block w-full">
-                  <mat-label>Full Name</mat-label>
-                  <input matInput formControlName="fullName" />
-                </mat-form-field>
+              <div class="col-md-6">
+                <app-form-input
+                  label="Full Name"
+                  type="text"
+                  [control]="personalInfoGroup.get('fullName')!"
+                />
               </div>
 
-              <div class="col-md-4">
-                <mat-form-field class="block w-full" appearance="outline">
-                  <mat-label>Email</mat-label>
-                  <input matInput type="email" formControlName="email" />
-                </mat-form-field>
+              <div class="col-md-6">
+                <app-form-input
+                  label="Email"
+                  type="email"
+                  [control]="personalInfoGroup.get('email')!"
+                />
               </div>
             </div>
 
             <div class="row">
-              <div class="col-md-4">
-                <mat-form-field class="block w-full" appearance="outline">
-                  <mat-label>Date of Birth</mat-label>
-                  <input matInput type="date" formControlName="dob" />
-                </mat-form-field>
+              <div class="col-md-6">
+                <app-form-input
+                  label="Date of Birth"
+                  type="date"
+                  [control]="personalInfoGroup.get('dob')!"
+                />
               </div>
 
-              <div class="col-md-4">
-                <mat-form-field class="block w-full" appearance="outline">
-                  <mat-label>Phone</mat-label>
-                  <input matInput formControlName="phone" />
-                </mat-form-field>
+              <div class="col-md-6">
+                <app-form-input
+                  label="Phone"
+                  type="tel"
+                  [control]="personalInfoGroup.get('phone')!"
+                />
               </div>
             </div>
 
@@ -60,7 +64,9 @@
           />
           <div class="mt-4">
             <button mat-button matStepperPrevious>Back</button>
-            <button mat-button matStepperNext>Next</button>
+            <button mat-button matStepperNext [disabled]="addresses.invalid">
+              Next
+            </button>
           </div>
         </mat-step>
 
@@ -73,13 +79,62 @@
           />
           <div class="mt-4">
             <button mat-button matStepperPrevious>Back</button>
-            <button mat-button matStepperNext>Next</button>
+            <button mat-button matStepperNext [disabled]="skills.invalid">
+              Next
+            </button>
           </div>
         </mat-step>
 
         <mat-step>
           <ng-template matStepLabel>Review</ng-template>
-          <pre>{{ form.value | json }}</pre>
+          <mat-card class="py-2" [appearance]="'outlined'">
+            <mat-card-title class="p-4">Personal Info</mat-card-title>
+            <mat-card-content class="px-4">
+              <p>
+                Full Name:
+                {{ form.get("personalInfo.fullName")?.value }}
+              </p>
+              <p>
+                Email:
+                {{ form.get("personalInfo.email")?.value }}
+              </p>
+              <p>
+                Phone:
+                {{ form.get("personalInfo.phone")?.value }}
+              </p>
+              <p>DOB: {{ form.get("personalInfo.dob")?.value }}</p>
+            </mat-card-content>
+          </mat-card>
+
+          <mat-card class="mt-4 py-2" [appearance]="'outlined'">
+            <mat-card-title class="p-4">Addresses</mat-card-title>
+            <mat-card-content class="py-2 px-4">
+              @for (address of form.get('addresses')?.value; track address; let
+              i = $index) {
+              <h6 class="py-2">
+                <strong>Address {{ i + 1 }}</strong>
+              </h6>
+              <p class="ps-2">Street: {{ address.street }}</p>
+              <p class="ps-2">City: {{ address.city }}</p>
+              <p class="ps-2">Zip: {{ address.zip }}</p>
+              <p class="ps-2">Country: {{ address.country }}</p>
+              @if(i != addresses.length-1){
+              <hr />
+              } }
+            </mat-card-content>
+          </mat-card>
+
+          <mat-card class="my-4 py-2" [appearance]="'outlined'">
+            <mat-card-title class="p-4">Skills</mat-card-title>
+            <mat-card-content class="px-4">
+              <ul>
+                @for (skill of form.get('skills')?.value; track skill) {
+                <li>{{ skill.name }} - {{ skill.level }}</li>
+                }
+              </ul>
+            </mat-card-content>
+          </mat-card>
+
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button color="primary" (click)="onSubmit()">
             Submit

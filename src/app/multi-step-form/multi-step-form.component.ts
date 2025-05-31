@@ -15,6 +15,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import { FormInputComponent } from '../form-input/form-input.component';
+import { MatCard, MatCardContent, MatCardTitle } from '@angular/material/card';
 
 @Component({
   selector: 'app-multi-step-form',
@@ -27,8 +29,12 @@ import { MatSelectModule } from '@angular/material/select';
     MatFormFieldModule,
     MatButtonModule,
     MatSelectModule,
+    MatCardTitle,
+    MatCard,
+    MatCardContent,
     AddressStepComponent,
     SkillsStepComponent,
+    FormInputComponent,
   ],
   templateUrl: './multi-step-form.component.html',
   styleUrl: './multi-step-form.component.css',

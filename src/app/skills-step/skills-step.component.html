@@ -1,1 +1,33 @@
-<p>skills-step works!</p>
+@for (skill of skills().controls; track skill; let i = $index) {
+<div [formGroup]="getSkillGroup(i)" class="mt-4">
+  <app-form-input
+    label="Name"
+    type="text"
+    [control]="getSkillGroup(i).get('name')!"
+  />
+
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <app-form-input
+        label="Years"
+        type="number"
+        [control]="getSkillGroup(i).get('years')!"
+      />
+    </div>
+    <div class="col-md-6">
+      <app-form-input
+        label="Level"
+        type="text"
+        [control]="getSkillGroup(i).get('level')!"
+      />
+    </div>
+  </div>
+
+  @if(skills().length > 1){
+  <button mat-button color="warn" (click)="remove.emit(i)">Remove Skill</button>
+  <hr class="my-4" />
+  }
+</div>
+}
+
+<button mat-button color="primary" (click)="add.emit()">Add Skill</button>
